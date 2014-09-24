@@ -25,7 +25,7 @@ uint16_t Light_Intensity=0;
 // Call the function
 
 BH1750FVI LightSensor;
-
+unsigned long time ;
 
 void setup() {
   // put your setup code here, to run once:
@@ -42,7 +42,7 @@ void setup() {
   lcd.print("Please wait...");
   delay(3000);
 //  lcd.clear();
-
+ time = millis();
 }
 
 void loop() {
@@ -56,5 +56,11 @@ void loop() {
    lcd.print(Light_Intensity);
    lcd.print(" Lux   ");
    delay(700);
-  
+   
+     if (millis()-time > 2000){
+  time = millis();
+  Serial.print("SN:004,LIGHT:");
+  Serial.print(Light_Intensity);
+  Serial.println("");
+     }
 }
